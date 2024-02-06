@@ -28,7 +28,7 @@ public class FilterTest {
         System.out.println("Running filter on page 1....");
         DisplayInfoFilter filter = new DisplayInfoFilter();
         filter.processImage(img);  // if you want, you can make a different method
-                                   // that does the image processing an returns a DTO with
+                                   // that does the image processing and returns a DTO with
                                    // the information you want
 
     }
