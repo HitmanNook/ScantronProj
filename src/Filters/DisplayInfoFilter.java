@@ -14,7 +14,6 @@ public class DisplayInfoFilter implements PixelFilter, Interactive{
     public DisplayInfoFilter() {
         System.out.println("Filter running...");
     }
-    public HashMap initializeHashMap
     public void findMarked(short[][] grid) {
         //grid = crop(grid, 0, 0, 500, 500);
 
@@ -30,16 +29,14 @@ public class DisplayInfoFilter implements PixelFilter, Interactive{
         for(String s : options.keySet()){
             System.out.println(s);
             int avg = 0;
-            for(int r = options.get(s); r < options.get(s) + 20; r++){
-                for(int c = 109; c < 129; c++){
+            for(int r = 109; r < 129; r++){
+                for(int c = options.get(s); c < options.get(s) + 20; c++){
                     avg += grid[r][c];
                 }
             }
             avg = avg / 400;
-            System.out.println(s + " has " + avg + " marked");
             if(avg < lowestAvg){
                 lowestAvg = avg;
-                System.out.println(s);
                 lowestAvgOption = s;
             }
         }
@@ -84,7 +81,14 @@ public class DisplayInfoFilter implements PixelFilter, Interactive{
     public void mouseClicked(int mouseX, int mouseY, DImage img) {
         short [][] grid = img.getBWPixelGrid();
         grid = crop(grid, 0, 0, 500, 500);
+        int avg = 0;
+        for (int i = mouseY-2; i <= mouseY+2; i++) {
+            for(int j = mouseX-2; j <= mouseX+2; j++) {
+                avg += grid[i][j];
+            }
+        }
         System.out.println("Mouse clicked at " + mouseX + ", " + mouseY + " with pixel value " + grid[mouseY][mouseX]);
+        System.out.println("The average pixel value around the click is " + avg/25);
     }
 
     @Override
