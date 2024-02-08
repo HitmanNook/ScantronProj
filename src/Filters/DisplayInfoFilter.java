@@ -14,7 +14,7 @@ public class DisplayInfoFilter implements PixelFilter, Interactive{
     public DisplayInfoFilter() {
         System.out.println("Filter running...");
     }
-
+    public HashMap initializeHashMap
     public void findMarked(short[][] grid) {
         //grid = crop(grid, 0, 0, 500, 500);
 
