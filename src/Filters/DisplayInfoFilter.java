@@ -14,7 +14,7 @@ public class DisplayInfoFilter implements PixelFilter, Interactive{
     public DisplayInfoFilter() {
         System.out.println("Filter running...");
     }
-    public void findMarked(short[][] grid) {
+    public String findMarked(short[][] grid,int v) {
         //grid = crop(grid, 0, 0, 500, 500);
 
         HashMap<String,Integer> options = new HashMap<>();
@@ -27,9 +27,8 @@ public class DisplayInfoFilter implements PixelFilter, Interactive{
         String lowestAvgOption = "";
         int lowestAvg = MAX_VALUE;
         for(String s : options.keySet()){
-            System.out.println(s);
             int avg = 0;
-            for(int r = 109; r < 129; r++){
+            for(int r = v; r < v+20; r++){
                 for(int c = options.get(s); c < options.get(s) + 20; c++){
                     avg += grid[r][c];
                 }
@@ -40,7 +39,8 @@ public class DisplayInfoFilter implements PixelFilter, Interactive{
                 lowestAvgOption = s;
             }
         }
-        System.out.println("The most marked option is " + lowestAvgOption);
+        //System.out.println("The most marked option is " + lowestAvgOption);
+        return lowestAvgOption;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class DisplayInfoFilter implements PixelFilter, Interactive{
         short[][] grid = img.getBWPixelGrid();
 
         System.out.println("Image is " + grid.length + " by "+ grid[0].length);
-        grid = crop(grid, 0, 0, 500, 500);
+        grid = crop(grid, 0, 0, 800, 400);
         int blackCount = 0;
         int whiteCount = 0;
         for (int r = 0; r < grid.length; r++) {
@@ -61,7 +61,9 @@ public class DisplayInfoFilter implements PixelFilter, Interactive{
         System.out.println(blackCount + " nearly black pixels and " + whiteCount + " nearly white pixels");
         System.out.println("----------------------------------------");
         System.out.println("If you want, you could output information to a file instead of printing it.");
-        findMarked(grid);
+        for (int i = 0; i < 12; i++) {
+            System.out.println("Question " + (i+1) + ": " + findMarked(grid,109+(i*48)));
+        }
         img.setPixels(grid);
         return img;
     }
